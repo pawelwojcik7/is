@@ -21,6 +21,8 @@ public class DataBaseRepository {
 
     private final static String SELECT_BY_PRODUCER_QUERY = "SELECT count(*) FROM laptops WHERE producer = ?";
 
+    private final static String SELECT_DISTINCT_SCREEN_TYPES = "SELECT DISTINCT screenType FROM laptops";
+    private final static String SELECT_BY_SCREEN_TYPE_QUERY = "SELECT * FROM laptops WHERE screenType = ?";
 
     private final Connector connector;
 
@@ -99,6 +101,32 @@ public class DataBaseRepository {
         }
 
         return numberOfRecords;
+    }
+
+    public List<String> getAllDistinctScreenTypes() throws SQLException {
+        List<String> distinctScreenTypes = new ArrayList<>();
+
+        PreparedStatement preparedStatement = connector.getConnection().prepareStatement(SELECT_DISTINCT_SCREEN_TYPES);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            distinctScreenTypes.add(resultSet.getString("screenType"));
+        }
+
+        return distinctScreenTypes;
+    }
+
+    public List<DataBaseInputFormat> getRecordsByScreenType(String screenType) throws SQLException {
+        List<DataBaseInputFormat> recordsByScreenType = new ArrayList<>();
+        PreparedStatement preparedStatement = connector.getConnection().prepareStatement(SELECT_BY_SCREEN_TYPE_QUERY);
+        preparedStatement.setString(1, screenType);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            DataBaseInputFormat dataBaseInputFormat = new DataBaseInputFormat();
+            // Uzupełnij pola dataBaseInputFormat tak, jak w metodzie getDatabaseInputFormats()
+            recordsByScreenType.add(dataBaseInputFormat);
+        }
+
+        return recordsByScreenType;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.is.format.database;
 
 
+import com.is.format.xml.*;
 import com.is.model.ComputerInfo;
 import lombok.*;
 
@@ -67,6 +68,32 @@ public class DataBaseInputFormat {
                 this.graphicCardMemory,
                 this.operatingSystem,
                 this.opticalDrive
+        );
+    }
+
+    public static XMLInputFormat toXMLInputFormat(DataBaseInputFormat dataBaseInputFormat) {
+        return new XMLInputFormat(
+                dataBaseInputFormat.getIndex(),
+                dataBaseInputFormat.getProducer(),
+                new Screen(
+                        dataBaseInputFormat.getIsTouchable(),
+                        dataBaseInputFormat.getDiagonal(),
+                        dataBaseInputFormat.getResolution(),
+                        dataBaseInputFormat.getScreenType()
+                ),
+                new Processor(
+                        dataBaseInputFormat.getProcessor(),
+                        dataBaseInputFormat.getCoreNumber(),
+                        dataBaseInputFormat.getFrequency()
+                ),
+                dataBaseInputFormat.getRAM(),
+                new Disc(
+                        dataBaseInputFormat.getDiskType(),
+                        dataBaseInputFormat.getDiskSize()
+                ),
+                new GraphicCard(),
+                dataBaseInputFormat.getOperatingSystem(),
+                dataBaseInputFormat.getOpticalDrive()
         );
     }
 
