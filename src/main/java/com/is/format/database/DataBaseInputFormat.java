@@ -91,7 +91,10 @@ public class DataBaseInputFormat {
                         dataBaseInputFormat.getDiskType(),
                         dataBaseInputFormat.getDiskSize()
                 ),
-                new GraphicCard(),
+                new GraphicCard(
+                        dataBaseInputFormat.getGraphicCard(),
+                        dataBaseInputFormat.getGraphicCardMemory()
+                ),
                 dataBaseInputFormat.getOperatingSystem(),
                 dataBaseInputFormat.getOpticalDrive()
         );

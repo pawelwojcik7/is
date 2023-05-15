@@ -96,8 +96,8 @@ public class DataBaseRepository {
         preparedStatement.setString(1, producer);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
-            numberOfRecords++;
+        if (resultSet.next()) {
+            numberOfRecords = resultSet.getInt(1);
         }
 
         return numberOfRecords;
