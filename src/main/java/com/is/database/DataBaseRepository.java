@@ -122,7 +122,22 @@ public class DataBaseRepository {
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             DataBaseInputFormat dataBaseInputFormat = new DataBaseInputFormat();
-            // Uzupełnij pola dataBaseInputFormat tak, jak w metodzie getDatabaseInputFormats()
+            dataBaseInputFormat.setIndex(resultSet.getString("indexNumber"));
+            dataBaseInputFormat.setProducer(resultSet.getString("producer"));
+            dataBaseInputFormat.setDiagonal(resultSet.getString("diagonal"));
+            dataBaseInputFormat.setResolution(resultSet.getString("resolution"));
+            dataBaseInputFormat.setScreenType(resultSet.getString("screenType"));
+            dataBaseInputFormat.setIsTouchable(resultSet.getString("isTouchable"));
+            dataBaseInputFormat.setProcessor(resultSet.getString("processor"));
+            dataBaseInputFormat.setCoreNumber(resultSet.getString("coreNumber"));
+            dataBaseInputFormat.setFrequency(resultSet.getString("frequency"));
+            dataBaseInputFormat.setRAM(resultSet.getString("RAM"));
+            dataBaseInputFormat.setDiskSize(resultSet.getString("diskSize"));
+            dataBaseInputFormat.setDiskType(resultSet.getString("diskType"));
+            dataBaseInputFormat.setGraphicCard(resultSet.getString("graphicCard"));
+            dataBaseInputFormat.setGraphicCardMemory(resultSet.getString("graphicCardMemory"));
+            dataBaseInputFormat.setOperatingSystem(resultSet.getString("operatingSystem"));
+            dataBaseInputFormat.setOpticalDrive(resultSet.getString("opticalDrive"));
             recordsByScreenType.add(dataBaseInputFormat);
         }
 
