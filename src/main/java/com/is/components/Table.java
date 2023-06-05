@@ -11,6 +11,8 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
@@ -25,6 +27,22 @@ public class Table extends JTable {
         super(dm);
         setUpTableCellEditor();
         setUpTableValidators();
+        getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0), "insertAction");
+        getActionMap().put("insertAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = getSelectedRow();
+                int selectedColumn = getSelectedColumn();
+
+                if (selectedRow >= 0 && selectedColumn >= 0) {
+                    editCellAt(selectedRow, selectedColumn);
+                    Component editor = getEditorComponent();
+                    if (editor != null) {
+                        editor.requestFocusInWindow();
+                    }
+                }
+            }
+        });
     }
 
     @Override
